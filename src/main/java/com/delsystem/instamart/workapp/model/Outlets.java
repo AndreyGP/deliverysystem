@@ -30,7 +30,7 @@ public class Outlets {
         try {
             if (instance == null) {
                 writeLock.lock();
-                instance = new Outlets();
+                if (instance == null) instance = new Outlets();
                 writeLock.unlock();
             }
             readLock.lock();
@@ -39,17 +39,7 @@ public class Outlets {
             readLock.unlock();
         }
     }
-    
-    void initTradePoint(final String tradePoint) {
-        writeLock.lock();
-        try {
-            if (outlets.get(tradePoint) == null)
-                outlets.put(tradePoint, new TradePoint(tradePoint));
-        }finally {
-            writeLock.unlock();
-        }
-    }
-    
+
     public TradePoint getTradePoint(final String tradePoint) {
         try {
             if (outlets.get(tradePoint) == null) {
@@ -59,6 +49,16 @@ public class Outlets {
             return outlets.get(tradePoint);
         }finally {
             readLock.unlock();
+        }
+    }
+
+    private void initTradePoint(final String tradePoint) {
+        writeLock.lock();
+        try {
+            if (outlets.get(tradePoint) == null)
+                outlets.put(tradePoint, new TradePoint(tradePoint));
+        }finally {
+            writeLock.unlock();
         }
     }
 

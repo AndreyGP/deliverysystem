@@ -1,5 +1,4 @@
 import com.delsystem.instamart.workapp.model.Outlets;
-import com.delsystem.instamart.workapp.model.TradePoint;
 import org.junit.Assert;
 import org.junit.Test;
 

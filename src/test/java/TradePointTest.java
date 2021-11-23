@@ -1,9 +1,7 @@
-import com.delsystem.instamart.bean.Order;
 import com.delsystem.instamart.workapp.model.Outlets;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**

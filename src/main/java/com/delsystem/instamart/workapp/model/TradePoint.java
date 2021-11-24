@@ -61,7 +61,7 @@ public class TradePoint {
         try {
             orders.clear();
             listOrdersMap.parallelStream()
-                    .forEachOrdered(orderMap -> orders.put(orderMap.get("Номер доставки"), new Order(orderMap)));
+                    .forEachOrdered(orderMap -> orders.put(orderMap.get("Номер доставки"), new Order().initOrder(orderMap)));
         }finally {
             writeLock.unlock();
             dampTradePoint();

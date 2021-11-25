@@ -1,5 +1,7 @@
 package com.delsystem.instamart.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,7 +18,7 @@ import static java.util.stream.Collectors.toList;
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
-
+@Component
 public class JSONFileParser {
     private String filePath;
 

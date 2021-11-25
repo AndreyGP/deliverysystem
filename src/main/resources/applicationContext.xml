@@ -14,38 +14,33 @@
     <bean id="order"
           class="com.delsystem.instamart.bean.Order"
           scope="prototype">
-        <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="picker"
           class="com.delsystem.instamart.bean.seniorpicker.Picker"
           scope="prototype">
-        <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="seniorPicker"
           class="com.delsystem.instamart.bean.seniorpicker.SeniorPicker"
           scope="prototype">
-        <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="courier"
           class="com.delsystem.instamart.bean.courier.Courier"
           scope="prototype">
-        <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="supervisor"
           class="com.delsystem.instamart.bean.supervisor.Supervisor"
           scope="prototype">
-        <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="xmlParser"
           class="com.delsystem.instamart.util.JSONFileParser"
           scope="prototype">
         <!--context:property-placeholder location="classpath:base.properties"/>
-        <property name="filePath" value="/home/andreigp/Documents/Sber/query_result_2021-10-10T15 50 25.45162Z.json"/-->
+        <property name="filePath" value="${filePath}"/-->
     </bean>
 
 </beans>

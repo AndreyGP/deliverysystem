@@ -1,5 +1,7 @@
 package com.delsystem.instamart.workapp.model;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
@@ -12,7 +14,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
-
+@Component
 public class Outlets {
     private final Map<String, TradePoint> outlets = new ConcurrentHashMap<>();
     private static Outlets instance = new Outlets();

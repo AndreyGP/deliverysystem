@@ -7,7 +7,7 @@
     <groupId>com.delsystem.instamart</groupId>
     <artifactId>deliverysystem</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>spring-app Maven Webapp</name>
     <!-- FIXME change it to the project's website -->
     <!--url>http://www.example.com</url-->
@@ -61,31 +61,79 @@
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.1.0</version>
+                    <version>2.5</version>
                 </plugin>
                 <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.2.0</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.8.1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.0.0-M5</version>
+                    <configuration>
+                        <testFailureIgnore>true</testFailureIgnore>
+                    </configuration>
+                </plugin>
+                <!--                <plugin>-->
+                <!--                    <groupId>org.apache.maven.plugins</groupId>-->
+                <!--                    <artifactId>maven-war-plugin</artifactId>-->
+                <!--                    <version>3.3.2</version>-->
+                <!--                </plugin>-->
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-jar-plugin</artifactId>-->
+<!--                    <version>3.2.0</version>-->
+<!--                    <configuration>-->
+<!--                        <archive>-->
+<!--                            <manifest>-->
+<!--&lt;!&ndash;                                <start-class>com.delsystem.instamart.workapp.Main</start-class>&ndash;&gt;-->
+<!--                                <addClasspath>true</addClasspath>-->
+<!--                                <mainClass>com.delsystem.instamart.workapp.Main</mainClass>-->
+<!--                            </manifest>-->
+<!--                        </archive>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+                                <mainClass>com.delsystem.instamart.workapp.Main</mainClass>
+                            </manifest>
+                        </archive>
+                        <descriptorRefs>
+                            <descriptorRef>jar-with-dependencies</descriptorRef>
+                        </descriptorRefs>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-jar-with-dependencies</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.3.2</version>
-                </plugin>
-                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-install-plugin</artifactId>
                     <version>3.0.0-M1</version>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>3.0.0-M1</version>
                 </plugin>

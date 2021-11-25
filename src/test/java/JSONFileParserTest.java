@@ -16,6 +16,8 @@ import java.util.Map;
 public class JSONFileParserTest {
     @Test(expected = NoSuchFileException.class)
     public void getCurrentOrdersMapShouldThrowsNoSuchFileException() {
-        new JSONFileParser("qwerty").getCurrentOrdersMap();
+        JSONFileParser parser = new JSONFileParser();
+        parser.setFilePath("1234");
+        parser.getCurrentOrdersMap();
     }
 }

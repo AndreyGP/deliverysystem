@@ -19,8 +19,6 @@ public class Outlets {
     private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private static final Lock readLock = lock.readLock();
     private static final Lock writeLock = lock.writeLock();
-    
-    private Outlets() {}
 
     /**
      *

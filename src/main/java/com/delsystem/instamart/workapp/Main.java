@@ -4,6 +4,7 @@ package com.delsystem.instamart.workapp;
 import com.delsystem.instamart.util.JSONFileParser;
 import com.delsystem.instamart.workapp.model.Outlets;
 import com.delsystem.instamart.workapp.model.TradePoint;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * DelSystem Created by Home Work Studio AndrHey [andreigp]
@@ -14,8 +15,12 @@ import com.delsystem.instamart.workapp.model.TradePoint;
 public class Main {
     private final static String filePath = "/home/andreigp/Documents/Sber/query_result_2021-10-10T15 50 25.45162Z.json";
     public static void main(String[] args) {
-        JSONFileParser parser = new JSONFileParser(filePath);
-        Outlets outlets = Outlets.getInstance();
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+                "applicationContext.xml"
+        );
+        JSONFileParser parser = context.getBean("xmlParser", JSONFileParser.class);
+        parser.setFilePath(filePath);
+        Outlets outlets = context.getBean("outlets", Outlets.class);
         TradePoint tradePoint = outlets.getTradePoint("1706");
         tradePoint.refreshOrders(parser.getCurrentOrdersMap());
 

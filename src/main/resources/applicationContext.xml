@@ -1,35 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans  xmlns="http://www.springframework.org/schema/beans"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:context="http://www.springframework.org/schema/context"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <bean id="outlets"
+          class="com.delsystem.instamart.workapp.model.Outlets">
+    </bean>
+
     <bean id="order"
-          class="com.delsystem.instamart.bean.Order">
+          class="com.delsystem.instamart.bean.Order"
+          scope="prototype">
         <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="picker"
-          class="com.delsystem.instamart.bean.seniorpicker.Picker">
+          class="com.delsystem.instamart.bean.seniorpicker.Picker"
+          scope="prototype">
         <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="seniorPicker"
-          class="com.delsystem.instamart.bean.seniorpicker.SeniorPicker">
+          class="com.delsystem.instamart.bean.seniorpicker.SeniorPicker"
+          scope="prototype">
         <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="courier"
-          class="com.delsystem.instamart.bean.courier.Courier">
+          class="com.delsystem.instamart.bean.courier.Courier"
+          scope="prototype">
         <!--constructor-arg value="123"/-->
     </bean>
 
     <bean id="supervisor"
-          class="com.delsystem.instamart.bean.supervisor.Supervisor">
+          class="com.delsystem.instamart.bean.supervisor.Supervisor"
+          scope="prototype">
         <!--constructor-arg value="123"/-->
+    </bean>
+
+    <bean id="xmlParser"
+          class="com.delsystem.instamart.util.JSONFileParser"
+          scope="prototype">
+        <!--context:property-placeholder location="classpath:base.properties"/>
+        <property name="filePath" value="/home/andreigp/Documents/Sber/query_result_2021-10-10T15 50 25.45162Z.json"/-->
     </bean>
 
 </beans>

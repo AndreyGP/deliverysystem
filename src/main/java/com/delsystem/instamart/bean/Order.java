@@ -1,6 +1,7 @@
 package com.delsystem.instamart.bean;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Scope;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -37,10 +38,6 @@ public class Order {
     private final Lock readLock = lock.readLock();
     private final Lock writeLock = lock.writeLock();
 
-    @Bean
-    public Order getOrder() {
-        return new Order();
-    }
 
     public Order initOrder(final Map<String, String> orderMap) {
         deliveryNumber = orderMap.get("Номер доставки");

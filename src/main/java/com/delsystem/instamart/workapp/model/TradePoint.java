@@ -4,7 +4,6 @@ import com.delsystem.instamart.bean.Order;
 import com.delsystem.instamart.bean.PartnerBase;
 import com.delsystem.instamart.dao.localfiles.DampTradePointWorker;
 import com.delsystem.instamart.util.Role;
-import org.springframework.context.annotation.Bean;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -36,11 +35,6 @@ public class TradePoint {
     public void initTradePoint(final String tradePointNumber) {
         this.tradePoint = tradePointNumber;
         dumpPath = initDumpPath() + tradePointNumber + ".csv";
-    }
-
-    @Bean
-    public TradePoint getTradePoint() {
-        return new TradePoint();
     }
 
     public String getTradePointNumber() {

@@ -1,5 +1,7 @@
 package com.delsystem.instamart.bean;
 
+import org.springframework.context.annotation.Bean;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -35,8 +37,9 @@ public class Order {
     private final Lock readLock = lock.readLock();
     private final Lock writeLock = lock.writeLock();
 
-    public Order() {
-
+    @Bean
+    public Order getOrder() {
+        return new Order();
     }
 
     public Order initOrder(final Map<String, String> orderMap) {

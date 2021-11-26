@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * DelSystem Created by Home Work Studio AndrHey [andreigp]
  * FileName: Outlets.java
  * Date/time: 17 октябрь 2021 in 12:01
+ *
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
@@ -23,7 +24,6 @@ public class Outlets {
     private static final Lock writeLock = lock.writeLock();
 
     /**
-     *
      * @return singleton instance
      */
     public static Outlets getInstance() {
@@ -35,7 +35,7 @@ public class Outlets {
             }
             readLock.lock();
             return instance;
-        }finally {
+        } finally {
             readLock.unlock();
         }
     }
@@ -47,17 +47,20 @@ public class Outlets {
             }
             readLock.lock();
             return outlets.get(tradePoint);
-        }finally {
+        } finally {
             readLock.unlock();
         }
     }
 
-    private void initTradePoint(final String tradePoint) {
+    private void initTradePoint(final String tradePointNumber) {
         writeLock.lock();
         try {
-            if (outlets.get(tradePoint) == null)
-                outlets.put(tradePoint, new TradePoint(tradePoint));
-        }finally {
+            if (outlets.get(tradePointNumber) == null) {
+                TradePoint tradePoint = new TradePoint();
+                tradePoint.initTradePoint(tradePointNumber);
+                outlets.put(tradePointNumber,tradePoint);
+            }
+        } finally {
             writeLock.unlock();
         }
     }

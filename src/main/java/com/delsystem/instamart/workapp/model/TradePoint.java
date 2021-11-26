@@ -4,6 +4,7 @@ import com.delsystem.instamart.bean.Order;
 import com.delsystem.instamart.bean.PartnerBase;
 import com.delsystem.instamart.dao.localfiles.DampTradePointWorker;
 import com.delsystem.instamart.util.Role;
+import org.springframework.context.annotation.Bean;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -25,19 +26,24 @@ public class TradePoint {
     private final Map<String, Order> orders = new ConcurrentHashMap<>();
     private final Set<PartnerBase> pickers = new HashSet<>();
     private final Set<PartnerBase> couriers = new HashSet<>();
-    private final String tradePoint;
+    private String tradePoint;
     private String dumpPath;
     public static final String PATH_TO_PROPERTIES = "/home/andreigp/IdeaProjects/deliverysystem/src/main/resources/base.properties";
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private final Lock readLock = lock.readLock();
     private final Lock writeLock = lock.writeLock();
 
-    TradePoint(final String tradePoint) {
-        this.tradePoint = tradePoint;
-        dumpPath = initDumpPath() + tradePoint + ".csv";
+    public void initTradePoint(final String tradePointNumber) {
+        this.tradePoint = tradePointNumber;
+        dumpPath = initDumpPath() + tradePointNumber + ".csv";
     }
 
-    public String getTradePoint() {
+    @Bean
+    public TradePoint getTradePoint() {
+        return new TradePoint();
+    }
+
+    public String getTradePointNumber() {
         readLock.lock();
         try {
             return tradePoint;

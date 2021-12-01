@@ -1,6 +1,6 @@
 package com.delsystem.instamart.workapp.model;
 
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -21,10 +21,15 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Scope("singleton")
 public class Outlets {
     private final Map<String, TradePoint> outlets = new ConcurrentHashMap<>();
-    private static Outlets instance = new Outlets();
+    private ApplicationContext context;
+    private static Outlets instance;
     private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private static final Lock readLock = lock.readLock();
     private static final Lock writeLock = lock.writeLock();
+
+    private Outlets() {
+        instance = this;
+    }
 
     /**
      * @return singleton instance
@@ -33,7 +38,9 @@ public class Outlets {
         try {
             if (instance == null) {
                 writeLock.lock();
-                if (instance == null) instance = new Outlets();
+                if (instance == null) {
+                    instance = new Outlets();
+                }
                 writeLock.unlock();
             }
             readLock.lock();
@@ -43,13 +50,17 @@ public class Outlets {
         }
     }
 
-    public TradePoint getTradePoint(final String tradePoint) {
+    public  void setContext(ApplicationContext context) {
+        this.context = context;
+    }
+
+    public TradePoint getTradePoint(final String tradePointNumber) {
         try {
-            if (outlets.get(tradePoint) == null) {
-                initTradePoint(tradePoint);
+            if (outlets.get(tradePointNumber) == null) {
+                initTradePoint(tradePointNumber);
             }
             readLock.lock();
-            return outlets.get(tradePoint);
+            return outlets.get(tradePointNumber);
         } finally {
             readLock.unlock();
         }
@@ -59,9 +70,9 @@ public class Outlets {
         writeLock.lock();
         try {
             if (outlets.get(tradePointNumber) == null) {
-                TradePoint tradePoint = new TradePoint();
-                tradePoint.initTradePoint(tradePointNumber);
-                outlets.put(tradePointNumber,tradePoint);
+                TradePoint newTradePoint = context.getBean(TradePoint.class);
+                newTradePoint.setTradePointNumber(tradePointNumber);
+                outlets.put(tradePointNumber, newTradePoint);
             }
         } finally {
             writeLock.unlock();

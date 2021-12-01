@@ -1,5 +1,6 @@
 package com.delsystem.instamart.util;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ import static java.util.stream.Collectors.toList;
  * @copy Can't use code
  */
 @Component
+@Scope("prototype")
 public class JSONFileParser {
     private String filePath;
 

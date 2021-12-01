@@ -1,7 +1,7 @@
 package com.delsystem.instamart.bean;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +17,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
-
+@Component
+@Scope("prototype")
 public class Order {
     private String deliveryNumber;
     private String address;

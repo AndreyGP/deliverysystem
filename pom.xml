@@ -29,12 +29,12 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.projectlombok</groupId>-->
+<!--            <artifactId>lombok</artifactId>-->
+<!--            <version>1.18.22</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -60,6 +60,27 @@
         <finalName>deliverysystem</finalName>
         <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>2.1</version>
+                    <executions>
+                        <execution>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>shade</goal>
+                            </goals>
+                            <configuration>
+                                <transformers>
+                                    <transformer
+                                            implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                        <mainClass>com.delsystem.instamart.workapp.Main</mainClass>
+                                    </transformer>
+                                </transformers>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
                 <plugin>
                     <groupId>com.soebes.maven.plugins</groupId>
                     <artifactId>uptodate-maven-plugin</artifactId>
@@ -102,20 +123,20 @@
                 <!--                    <artifactId>maven-war-plugin</artifactId>-->
                 <!--                    <version>3.3.2</version>-->
                 <!--                </plugin>-->
-<!--                <plugin>-->
-<!--                    <groupId>org.apache.maven.plugins</groupId>-->
-<!--                    <artifactId>maven-jar-plugin</artifactId>-->
-<!--                    <version>3.2.0</version>-->
-<!--                    <configuration>-->
-<!--                        <archive>-->
-<!--                            <manifest>-->
-<!--&lt;!&ndash;                                <start-class>com.delsystem.instamart.workapp.Main</start-class>&ndash;&gt;-->
-<!--                                <addClasspath>true</addClasspath>-->
-<!--                                <mainClass>com.delsystem.instamart.workapp.Main</mainClass>-->
-<!--                            </manifest>-->
-<!--                        </archive>-->
-<!--                    </configuration>-->
-<!--                </plugin>-->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>3.2.0</version>
+                    <configuration>
+                        <archive>
+                            <manifest>
+<!--                                <start-class>com.delsystem.instamart.workapp.Main</start-class>-->
+                                <addClasspath>true</addClasspath>
+                                <mainClass>com.delsystem.instamart.workapp.Main</mainClass>
+                            </manifest>
+                        </archive>
+                    </configuration>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>

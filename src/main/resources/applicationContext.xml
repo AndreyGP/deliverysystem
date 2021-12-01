@@ -7,8 +7,18 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
+    <context:property-placeholder location="classpath:base.properties"/>
+<!--    <context:component-scan base-package="com.delsystem.instamart"/>-->
+
     <bean id="outlets"
-          class="com.delsystem.instamart.workapp.model.Outlets">
+          class="com.delsystem.instamart.workapp.model.Outlets"
+          factory-method="getInstance">
+    </bean>
+
+    <bean id="tradePoint"
+          class="com.delsystem.instamart.workapp.model.TradePoint"
+          scope="prototype">
+        <property name="dumpPath" value="${dumpPath}"/>
     </bean>
 
     <bean id="order"
@@ -39,8 +49,7 @@
     <bean id="xmlParser"
           class="com.delsystem.instamart.util.JSONFileParser"
           scope="prototype">
-        <!--context:property-placeholder location="classpath:base.properties"/>
-        <property name="filePath" value="${filePath}"/-->
+        <property name="filePath" value="${filePath}"/>
     </bean>
 
 </beans>

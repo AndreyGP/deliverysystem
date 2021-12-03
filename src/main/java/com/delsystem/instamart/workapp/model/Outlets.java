@@ -21,7 +21,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @Scope("singleton")
 public class Outlets {
     private final Map<String, TradePoint> outlets = new ConcurrentHashMap<>();
-    private ApplicationContext context;
+    private static ApplicationContext context;
     private static Outlets instance;
     private static final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
     private static final Lock readLock = lock.readLock();
@@ -29,6 +29,10 @@ public class Outlets {
 
     private Outlets() {
         instance = this;
+    }
+
+    public void setContext(ApplicationContext applicationContext) {
+        context = applicationContext;
     }
 
     /**
@@ -50,8 +54,8 @@ public class Outlets {
         }
     }
 
-    public  void setContext(ApplicationContext context) {
-        this.context = context;
+    public int getAmountTradePoint() {
+        return outlets.size();
     }
 
     public TradePoint getTradePoint(final String tradePointNumber) {
@@ -62,20 +66,22 @@ public class Outlets {
             readLock.lock();
             return outlets.get(tradePointNumber);
         } finally {
-            readLock.unlock();
+            if (readLock.tryLock())
+                readLock.unlock();
         }
     }
 
     private void initTradePoint(final String tradePointNumber) {
-        writeLock.lock();
         try {
             if (outlets.get(tradePointNumber) == null) {
+                readLock.lock();
                 TradePoint newTradePoint = context.getBean(TradePoint.class);
                 newTradePoint.setTradePointNumber(tradePointNumber);
                 outlets.put(tradePointNumber, newTradePoint);
             }
         } finally {
-            writeLock.unlock();
+            if (readLock.tryLock())
+                readLock.unlock();
         }
     }
 

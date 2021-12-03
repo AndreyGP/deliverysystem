@@ -1,12 +1,18 @@
 package com.delsystem.instamart.workapp.model;
 
+import com.delsystem.instamart.bean.Employee;
 import com.delsystem.instamart.bean.Order;
 import com.delsystem.instamart.bean.PartnerBase;
 import com.delsystem.instamart.dao.localfiles.DampTradePointWorker;
 import com.delsystem.instamart.util.Role;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.Lock;
@@ -25,8 +31,8 @@ import java.util.stream.Collectors;
 @Scope("prototype")
 public class TradePoint {
     private final Map<String, Order> orders = new ConcurrentHashMap<>();
-    private final Set<PartnerBase> pickers = new HashSet<>();
-    private final Set<PartnerBase> couriers = new HashSet<>();
+    private final Set<Employee> pickers = new HashSet<>();
+    private final Set<Employee> couriers = new HashSet<>();
     private String tradePoint;
     private String dumpPath;
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
@@ -36,16 +42,6 @@ public class TradePoint {
     public void setTradePointNumber(final String tradePointNumber) {
         this.tradePoint = tradePointNumber;
         initDumpPathForCurrentTradePoint();
-    }
-
-    public void setDumpPath(final String dumpPath) {
-        this.dumpPath = dumpPath;
-        if (tradePoint != null)
-            initDumpPathForCurrentTradePoint();
-    }
-
-    private void initDumpPathForCurrentTradePoint() {
-        this.dumpPath = dumpPath + tradePoint + ".csv";
     }
 
     public String getTradePointNumber() {
@@ -65,7 +61,6 @@ public class TradePoint {
             readLock.unlock();
         }
     }
-
 
     public void refreshOrders(final List<Map<String, String>> listOrdersMap) {
         writeLock.lock();
@@ -88,6 +83,28 @@ public class TradePoint {
         }
     }
 
+    private void initDumpPathForCurrentTradePoint() {
+        if (this.dumpPath == null) {
+            String appConfigPath = getClass().getProtectionDomain().getCodeSource().getLocation().getPath() + "base.properties";
+            try {
+                final ResourceBundle bundle = new PropertyResourceBundle(new FileInputStream(appConfigPath));
+                dumpPath = bundle.getString("dumpPath");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        final File dumpDir = new File(this.dumpPath = dumpPath + tradePoint + "/");
+        this.dumpPath = dumpPath + new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime()) + ".csv";
+        if (dumpDir.mkdir()) {
+            final File dumpFile = new File(dumpPath);
+            try {
+                dumpFile.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private Map<String, Order> getOrdersByPickerName(final String fullName) {
         Map<String, Order> pickerOrders = new ConcurrentHashMap<>();
         List<Order> orderList = orders.values().stream()
@@ -107,6 +124,7 @@ public class TradePoint {
     }
 
     private void dampTradePoint() {
+        if (orders.isEmpty()) return;
         readLock.lock();
         try {
             DampTradePointWorker dampTradePointWorker = new DampTradePointWorker();

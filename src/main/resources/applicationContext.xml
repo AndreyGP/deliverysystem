@@ -7,49 +7,49 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:base.properties"/>
+<!--    <context:property-placeholder location="classpath:base.properties"/>-->
 <!--    <context:component-scan base-package="com.delsystem.instamart"/>-->
 
-    <bean id="outlets"
-          class="com.delsystem.instamart.workapp.model.Outlets"
-          factory-method="getInstance">
-    </bean>
+<!--    <bean id="outlets"-->
+<!--          class="com.delsystem.instamart.workapp.model.Outlets"-->
+<!--          factory-method="getInstance">-->
+<!--    </bean>-->
 
-    <bean id="tradePoint"
-          class="com.delsystem.instamart.workapp.model.TradePoint"
-          scope="prototype">
-        <property name="dumpPath" value="${dumpPath}"/>
-    </bean>
+<!--    <bean id="tradePoint"-->
+<!--          class="com.delsystem.instamart.workapp.model.TradePoint"-->
+<!--          scope="prototype">-->
+<!--        <property name="dumpPath" value="${dumpPath}"/>-->
+<!--    </bean>-->
 
-    <bean id="order"
-          class="com.delsystem.instamart.bean.Order"
-          scope="prototype">
-    </bean>
+<!--    <bean id="order"-->
+<!--          class="com.delsystem.instamart.bean.Order"-->
+<!--          scope="prototype">-->
+<!--    </bean>-->
 
-    <bean id="picker"
-          class="com.delsystem.instamart.bean.seniorpicker.Picker"
-          scope="prototype">
-    </bean>
+<!--    <bean id="picker"-->
+<!--          class="com.delsystem.instamart.bean.seniorpicker.Picker"-->
+<!--          scope="prototype">-->
+<!--    </bean>-->
 
-    <bean id="seniorPicker"
-          class="com.delsystem.instamart.bean.seniorpicker.SeniorPicker"
-          scope="prototype">
-    </bean>
+<!--    <bean id="seniorPicker"-->
+<!--          class="com.delsystem.instamart.bean.seniorpicker.SeniorPicker"-->
+<!--          scope="prototype">-->
+<!--    </bean>-->
 
-    <bean id="courier"
-          class="com.delsystem.instamart.bean.courier.Courier"
-          scope="prototype">
-    </bean>
+<!--    <bean id="courier"-->
+<!--          class="com.delsystem.instamart.bean.courier.Courier"-->
+<!--          scope="prototype">-->
+<!--    </bean>-->
 
-    <bean id="supervisor"
-          class="com.delsystem.instamart.bean.supervisor.Supervisor"
-          scope="prototype">
-    </bean>
+<!--    <bean id="supervisor"-->
+<!--          class="com.delsystem.instamart.bean.supervisor.Supervisor"-->
+<!--          scope="prototype">-->
+<!--    </bean>-->
 
-    <bean id="xmlParser"
-          class="com.delsystem.instamart.util.JSONFileParser"
-          scope="prototype">
-        <property name="filePath" value="${filePath}"/>
-    </bean>
+<!--    <bean id="xmlParser"-->
+<!--          class="com.delsystem.instamart.util.JSONFileParser"-->
+<!--          scope="prototype">-->
+<!--        <property name="filePath" value="${filePath}"/>-->
+<!--    </bean>-->
 
 </beans>

@@ -1,11 +1,7 @@
 package com.delsystem.instamart.springjavaconfigs;
 
-import com.delsystem.instamart.bean.Order;
-import com.delsystem.instamart.workapp.model.TradePoint;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.*;
+
 
 /**
  * deliverysystem Created by Home Work Studio AndrHey [andreigp]
@@ -14,17 +10,10 @@ import org.springframework.context.annotation.Scope;
  */
 @Configuration
 @ComponentScan("com.delsystem.instamart")
+@PropertySources({
+        @PropertySource("classpath:base.properties")
+})
 public class MainConfiguration {
 
-    @Bean
-    @Scope("prototype")
-    public TradePoint getTradePoint() {
-        return new TradePoint();
-    }
 
-    @Bean
-    @Scope("prototype")
-    public Order getOrder() {
-        return new Order();
-    }
 }

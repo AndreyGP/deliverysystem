@@ -3,6 +3,7 @@ package com.delsystem.instamart.dao.localfiles;
 import com.delsystem.instamart.bean.Order;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
@@ -29,21 +30,20 @@ public class DampTradePointWorker implements Runnable {
     @Override
     public void run() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dumpPath))) {
-            StringBuilder firstLine = new StringBuilder()
-                    .append("Номер доставки|")
-                    .append("Адрес клиента|")
-                    .append("Текущий статус доставки|")
-                    .append("Время слота по мест. вр.|")
-                    .append("Имя сборщика|")
-                    .append("Имя курьера|")
-                    .append("Время взятия в сборку|")
-                    .append("Время окончания сборки|")
-                    .append("Время начала доставки (СберМ)|")
-                    .append("Время доставки|")
-                    .append("Отзыв клиента|")
-                    .append("Оценка|")
-                    .append("Число позиций|");
-            writer.write(firstLine.toString());
+            String firstLine = "Номер доставки|" +
+                    "Адрес клиента|" +
+                    "Текущий статус доставки|" +
+                    "Время слота по мест. вр.|" +
+                    "Имя сборщика|" +
+                    "Имя курьера|" +
+                    "Время взятия в сборку|" +
+                    "Время окончания сборки|" +
+                    "Время начала доставки (СберМ)|" +
+                    "Время доставки|" +
+                    "Отзыв клиента|" +
+                    "Оценка|" +
+                    "Число позиций|";
+            writer.write(firstLine);
             writer.newLine();
 
             orders.forEach((delNumber, order) -> {

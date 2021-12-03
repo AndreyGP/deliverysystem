@@ -1,15 +1,12 @@
 package com.delsystem.instamart.workapp;
 
 
+import com.delsystem.instamart.springjavaconfigs.MainConfiguration;
 import com.delsystem.instamart.util.JSONFileParser;
 import com.delsystem.instamart.workapp.model.Outlets;
 import com.delsystem.instamart.workapp.model.TradePoint;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.ClassPathBeanDefinitionScanner;
-import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 
 /**
  * DelSystem Created by Home Work Studio AndrHey [andreigp]
@@ -19,29 +16,38 @@ import org.springframework.context.support.GenericApplicationContext;
 
 public class Main {
     public static void main(String[] args) {
-//        ApplicationContext context =
-//                new AnnotationConfigApplicationContext("com.delsystem.instamart");
-ApplicationContext context = new ClassPathXmlApplicationContext(
-        "applicationContext.xml"
-);
+        ApplicationContext context =
+                new AnnotationConfigApplicationContext(MainConfiguration.class);
+
         JSONFileParser parser = context.getBean(JSONFileParser.class);
 
         Outlets outlets = context.getBean(Outlets.class);
         outlets.setContext(context);
-        
-        TradePoint tradePoint = outlets.getTradePoint("1706");
-        tradePoint.refreshOrders(parser.getCurrentOrdersMap());
 
-        Outlets outletsTest = Outlets.getInstance();
-        Outlets outlets2 = context.getBean(Outlets.class);
-        System.out.println(outlets == outlets2);
-        System.out.println(outletsTest == outlets2);
-        System.out.println(outlets == outletsTest);
-        System.out.println(Outlets.getInstance() == outlets);
-        System.out.println(Outlets.getInstance() == outlets2);
-        System.out.println(Outlets.getInstance() == outletsTest);
+        TradePoint tradePoint1706 = outlets.getTradePoint("1706");
+        tradePoint1706.refreshOrders(parser.getCurrentOrdersMap());
 
-//        tradePoint.getOrders().forEach((key, order) -> {
+        outlets = context.getBean(Outlets.class);
+        TradePoint tradePoint1707 = outlets.getTradePoint("1707");
+        tradePoint1707.refreshOrders(parser.getCurrentOrdersMap());
+
+        outlets = context.getBean(Outlets.class);
+        TradePoint tradePoint1708 = outlets.getTradePoint("1708");
+        tradePoint1708.refreshOrders(parser.getCurrentOrdersMap());
+
+        int currentAmountTradePoint = outlets.getAmountTradePoint();
+        System.out.println(currentAmountTradePoint);
+
+//        Outlets outletsTest = Outlets.getInstance();
+//        Outlets outlets2 = context.getBean(Outlets.class);
+//        System.out.println(outlets == outlets2);
+//        System.out.println(outletsTest == outlets2);
+//        System.out.println(outlets == outletsTest);
+//        System.out.println(Outlets.getInstance() == outlets);
+//        System.out.println(Outlets.getInstance() == outlets2);
+//        System.out.println(Outlets.getInstance() == outletsTest);
+
+//        tradePoint1706.getOrders().forEach((key, order) -> {
 //            System.out.println("Информация объекта " + key + "\n\n");
 //            System.out.println(order);
 //            System.out.println("\n\n");

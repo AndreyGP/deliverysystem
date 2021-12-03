@@ -1,5 +1,6 @@
 package com.delsystem.instamart.util;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -22,13 +23,10 @@ import static java.util.stream.Collectors.toList;
 @Component
 @Scope("prototype")
 public class JSONFileParser {
-    private String filePath;
 
-//    public JSONFileParser(final String filePath) {
-//        this.filePath = filePath;
-//    }
+    @Value("${filePath}") private String filePath;
 
-    public void setFilePath(String filePath) {
+    public void setFilePath(final String filePath) {
         this.filePath = filePath;
     }
 

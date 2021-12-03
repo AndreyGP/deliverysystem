@@ -1,5 +1,9 @@
 package com.delsystem.instamart.util;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -16,15 +20,18 @@ import static java.util.stream.Collectors.toList;
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
-
+@Component
+@Scope("prototype")
 public class JSONFileParser {
-    private String filePath;
 
-    public JSONFileParser(final String filePath) {
+    @Value("${filePath}") private String filePath;
+
+    public void setFilePath(final String filePath) {
         this.filePath = filePath;
     }
 
     private List<String> getJSONStringsList() {
+        if (filePath == null) return Collections.emptyList();
         List<String> result = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             StringBuilder strings = new StringBuilder();
@@ -41,6 +48,7 @@ public class JSONFileParser {
     }
 
     private List<List<String>> getOrdersList(final List<String> jsonStrings) {
+        if (jsonStrings == null) return Collections.emptyList();
         return jsonStrings.parallelStream()
                 .map(s -> Arrays.stream(s.replaceAll("\":","\" : ")
                                 .replaceAll(":null", ": null")
@@ -55,6 +63,7 @@ public class JSONFileParser {
 
     private List<Map<String, String>> getListOrdersMap(final List<List<String>> ordersList) {
         List<Map<String, String>> result = new ArrayList<>();
+        if (ordersList.isEmpty()) return result;
         for (List<String> orders : ordersList) {
             Map<String, String> orderMap = new HashMap<>();
             for (String fieldOrder : orders) {

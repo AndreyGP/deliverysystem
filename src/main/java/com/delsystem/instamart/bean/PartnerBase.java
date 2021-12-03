@@ -16,7 +16,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @copy Can't use code
  */
 
-abstract public class PartnerBase {
+abstract public class PartnerBase implements Employee {
     protected String role;
     protected String fullName;
     protected String name;

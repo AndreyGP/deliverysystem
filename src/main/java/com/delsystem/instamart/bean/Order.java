@@ -1,5 +1,8 @@
 package com.delsystem.instamart.bean;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,9 +17,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @author andreigp Andrei G. Pastushenko
  * @copy Can't use code
  */
-
+@Component
+@Scope("prototype")
 public class Order {
-    private final String deliveryNumber;
+    private String deliveryNumber;
     private String address;
     private String currentStatus;
     private String deliveryInterval;
@@ -35,7 +39,8 @@ public class Order {
     private final Lock readLock = lock.readLock();
     private final Lock writeLock = lock.writeLock();
 
-    public Order(final Map<String, String> orderMap) {
+
+    public Order initOrder(final Map<String, String> orderMap) {
         deliveryNumber = orderMap.get("Номер доставки");
         address = getFormatAddress(orderMap.get("Адрес клиента"));
         currentStatus = Status.getStatusByKey(orderMap.get("Текущий статус доставки"));
@@ -51,6 +56,7 @@ public class Order {
         quantityOfPositions = Integer.parseInt(orderMap.get("Число позиций"));
         delayedDelivery = lateDelivery();// No realisation
         courierAppointed =inRay();// No realisation
+        return this;
     }
 
     public String getDeliveryNumber() {

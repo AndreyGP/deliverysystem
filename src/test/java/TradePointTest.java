@@ -15,12 +15,12 @@ public class TradePointTest {
 
     @Test
     public void getTradePointShouldByStringType() {
-        Assert.assertTrue(outlets.getTradePoint("1234").getTradePoint() instanceof String);
+        Assert.assertTrue(outlets.getTradePoint("1234").getTradePointNumber() instanceof String);
     }
 
     @Test
     public void getTradePointShouldByNotNull() {
-        Assert.assertNotNull(outlets.getTradePoint("1234").getTradePoint());
+        Assert.assertNotNull(outlets.getTradePoint("1234").getTradePointNumber());
     }
 
     @Test

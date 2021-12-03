@@ -12,6 +12,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  * DelSystem Created by Home Work Studio AndrHey [andreigp]
  * FileName: Main.java
  * Date/time: 15 сентябрь 2021 in 14:25
+ * Я просто импровизирую))
  */
 
 public class Main {
@@ -38,14 +39,6 @@ public class Main {
         int currentAmountTradePoint = outlets.getAmountTradePoint();
         System.out.println(currentAmountTradePoint);
 
-//        Outlets outletsTest = Outlets.getInstance();
-//        Outlets outlets2 = context.getBean(Outlets.class);
-//        System.out.println(outlets == outlets2);
-//        System.out.println(outletsTest == outlets2);
-//        System.out.println(outlets == outletsTest);
-//        System.out.println(Outlets.getInstance() == outlets);
-//        System.out.println(Outlets.getInstance() == outlets2);
-//        System.out.println(Outlets.getInstance() == outletsTest);
 
 //        tradePoint1706.getOrders().forEach((key, order) -> {
 //            System.out.println("Информация объекта " + key + "\n\n");
